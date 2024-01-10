@@ -71,22 +71,18 @@ type PokemonDB struct {
 	ImagePath string
 	Types     string
 
-	//ColorName string
 	//generation
 	GenerationName string
 	GenerationID   int
 }
 
 func main() {
-	// Apre la connessione al database SQLite
 	db, err := sql.Open("sqlite3", "./pokemon.db")
 	if err != nil {
-		fmt.Println("Errore nell'apertura del database:", err)
 		return
 	}
 	defer db.Close()
 
-	// Crea la tabella se non esiste già
 	_, err = db.Exec(`CREATE TABLE IF NOT EXISTS Pokemons (
 		ID INTEGER PRIMARY KEY,
 		Name TEXT,
@@ -96,7 +92,6 @@ func main() {
 		GenerationID INTEGER
 	)`)
 	if err != nil {
-		fmt.Println("Errore nella creazione della tabella:", err)
 		return
 	}
 
@@ -113,7 +108,6 @@ func main() {
 
 	stmt, err := db.Prepare(`INSERT INTO Pokemons (ID, Name, ImagePath, Types, GenerationName, GenerationID) VALUES (?, ?, ?, ?, ?, ?)`)
 	if err != nil {
-		fmt.Println("Errore nella preparazione dello statement di inserimento:", err)
 		return
 	}
 	defer stmt.Close()
@@ -121,25 +115,22 @@ func main() {
 	for _, pokemon := range pokemons {
 		_, err = stmt.Exec(pokemon.ID, pokemon.Name, pokemon.ImagePath, pokemon.Types, pokemon.GenerationName, pokemon.GenerationID)
 		if err != nil {
-			fmt.Println("Errore nell'inserimento del dato:", err)
 			return
 		}
-
-		fmt.Println("Pokemon inserito: ", pokemon.Name)
 	}
 }
 func getGenerationList() (res []PokemonGeneration) {
 	url := "https://pokeapi.co/api/v2/generation/"
 	resp, err := http.Get(url)
 	if err != nil {
-		log.Fatal("Errore nella richiesta HTTP: ", err)
+		log.Fatal(err)
 	}
 	defer resp.Body.Close()
 
 	var generationData PokemonGenerationResponse
 	err = json.NewDecoder(resp.Body).Decode(&generationData)
 	if err != nil {
-		log.Fatal("Errore nel decodificare la risposta JSON: ", err)
+		log.Fatal(err)
 	}
 	generationList := []PokemonGeneration{}
 
@@ -162,7 +153,7 @@ func getPokemonList(gen PokemonGeneration) (res []PokemonUrl) {
 	var pokemonData PokemonListResponse
 	err = json.NewDecoder(resp.Body).Decode(&pokemonData)
 	if err != nil {
-		log.Fatal("Errore nel decodificare la risposta JSON: ", err)
+		log.Fatal(err)
 	}
 	pokemonUrlList := []PokemonUrl{}
 
@@ -171,7 +162,6 @@ func getPokemonList(gen PokemonGeneration) (res []PokemonUrl) {
 		pokemonNumberStr := parts[len(parts)-2]
 		pokemonNumber, err := strconv.Atoi(pokemonNumberStr)
 		if err != nil {
-			fmt.Println("Errore nella conversione:", err)
 			return
 		}
 		pokemonUrlList = append(pokemonUrlList, PokemonUrl{
@@ -185,14 +175,14 @@ func getPokemon(pokemon PokemonUrl) (res PokemonDetail) {
 	url := fmt.Sprintf("https://pokeapi.co/api/v2/pokemon/%d", pokemon.ID)
 	resp, err := http.Get(url)
 	if err != nil {
-		log.Fatal("Errore nella richiesta HTTP: ", err)
+		log.Fatal(err)
 	}
 	defer resp.Body.Close()
 
 	var pokemonData PokemonResponse
 	err = json.NewDecoder(resp.Body).Decode(&pokemonData)
 	if err != nil {
-		log.Fatal("Errore nel decodificare la risposta JSON: ", err)
+		log.Fatal(err)
 	}
 	types := []string{}
 	for _, t := range pokemonData.Types {
@@ -230,12 +220,12 @@ func downloadImage(url string) (path string, err error) {
 	folder := "images"
 	response, err := http.Get(url)
 	if err != nil {
-		return "", fmt.Errorf("errore nella richiesta GET: %v", err)
+		return "", err
 	}
 	defer response.Body.Close()
 
 	if response.StatusCode != http.StatusOK {
-		return "", fmt.Errorf("errore nel download dell'immagine: %s", response.Status)
+		return "", err
 	}
 
 	fileURLParts := strings.Split(url, "/")
@@ -245,13 +235,13 @@ func downloadImage(url string) (path string, err error) {
 
 	file, err := os.Create(destPath)
 	if err != nil {
-		return "", fmt.Errorf("errore nella creazione del file: %v", err)
+		return "", err
 	}
 	defer file.Close()
 
 	_, err = io.Copy(file, response.Body)
 	if err != nil {
-		return "", fmt.Errorf("errore nel salvare l'immagine: %v", err)
+		return "", err
 	}
 
 	return "images/" + fileName, nil

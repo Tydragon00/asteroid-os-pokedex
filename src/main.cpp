@@ -27,7 +27,7 @@ public:
         if (!query.exec())
         {
             qWarning() << "MainWindow::OnSearchClicked - ERROR: " << query.lastError().text();
-            return seriesList; // Restituisci un array vuoto in caso di errore
+            return seriesList;
         }
 
         while (query.next())
@@ -75,7 +75,7 @@ public:
         if (!query.exec())
         {
             qWarning() << "MainWindow::OnSearchClicked - ERROR: " << query.lastError().text();
-            return QVariantList(); // Restituisci una lista vuota in caso di errore
+            return QVariantList();
         }
 
         while (query.next())
@@ -86,7 +86,7 @@ public:
             map.insert("image", query.value(2).toString());
 
             QString typesString = query.value(3).toString();
-            QStringList types = typesString.split(","); // Supponendo che i tipi siano separati da spazi
+            QStringList types = typesString.split(",");
 
             QVariantList typesList;
             for (const QString &type : types)
@@ -113,7 +113,7 @@ public:
             QVariantMap notFound;
             notFound.insert("name", "person not found");
             notFound.insert("GenerationName", "");
-            notFound.insert("image", ""); // Immagine vuota per questo caso
+            notFound.insert("image", "");
             resultList.append(notFound);
         }
 
@@ -121,9 +121,6 @@ public:
     }
 };
 
-// We want to avoid defining the class above in a my_database.h file. That would let the MOC
-// pre-processor find what it needs automatically, but we'd have another file in this demo.
-// To avoid that, we have to include the .moc manually. See: https://stackoverflow.com/a/3005403
 #include "main.moc"
 
 void databaseConnect()
