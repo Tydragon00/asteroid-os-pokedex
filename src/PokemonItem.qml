@@ -35,10 +35,10 @@ Item {
         }
         Row {
             spacing: 10
-            anchors.horizontalCenter: parent.horizontalCenter // Centra i rettangoli
+            anchors.horizontalCenter: parent.horizontalCenter
 
             Repeater {
-                model: typesList // Itera attraverso la lista dei tipi
+                model: typesList
 
                 Rectangle {
                     width: 80
