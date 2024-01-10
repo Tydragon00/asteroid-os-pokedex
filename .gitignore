@@ -1,0 +1,5 @@
+build
+init/images/
+init/pokemon.db
+src/images/
+src/db/

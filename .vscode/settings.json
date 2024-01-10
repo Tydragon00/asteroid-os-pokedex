@@ -1,0 +1,31 @@
+{
+    "C_Cpp.errorSquiggles": "disabled",
+    "files.associations": {
+        "chrono": "cpp",
+        "optional": "cpp",
+        "format": "cpp",
+        "system_error": "cpp",
+        "string": "cpp",
+        "*.tcc": "cpp",
+        "deque": "cpp",
+        "list": "cpp",
+        "unordered_map": "cpp",
+        "vector": "cpp",
+        "functional": "cpp",
+        "array": "cpp",
+        "memory": "cpp",
+        "future": "cpp",
+        "istream": "cpp",
+        "tuple": "cpp",
+        "utility": "cpp",
+        "variant": "cpp",
+        "string_view": "cpp",
+        "span": "cpp",
+        "map": "cpp",
+        "any": "cpp",
+        "charconv": "cpp",
+        "compare": "cpp",
+        "ratio": "cpp",
+        "type_traits": "cpp"
+    }
+}

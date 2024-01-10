@@ -1,0 +1,11 @@
+<RCC>
+    <qresource prefix="/">
+        <file>main.qml</file>
+        <file>GenerationItem.qml</file>
+        <file>Pokemon.qml</file>
+        <file>PokemonItem.qml</file>
+        <file>db/pokemon.db</file>
+        <file>images/</file>
+    </qresource>
+</RCC>
+
