@@ -131,7 +131,7 @@ void databaseConnect()
     {
         QSqlDatabase db = QSqlDatabase::addDatabase(DRIVER);
 
-        db.setDatabaseName("/home/ceres/pokemon.db");
+        db.setDatabaseName("/usr/share/pokemon/pokemon.db");
 
         if (!db.open())
             qWarning() << "MainWindow::DatabaseConnect - ERROR: " << db.lastError().text();

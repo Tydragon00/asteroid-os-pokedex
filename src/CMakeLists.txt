@@ -8,3 +8,6 @@ target_link_libraries(${CMAKE_PROJECT_NAME} PUBLIC
 target_link_libraries(${CMAKE_PROJECT_NAME} PRIVATE Qt5::Sql)
 install(TARGETS ${CMAKE_PROJECT_NAME}
 	DESTINATION ${CMAKE_INSTALL_LIBDIR})
+
+
+install(FILES db/pokemon.db DESTINATION /usr/share/pokemon/)
