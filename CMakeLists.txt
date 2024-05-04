@@ -16,7 +16,7 @@ include(AsteroidCMakeSettings)
 include(AsteroidTranslations)
 
 add_subdirectory(src)
-qt5_add_resources(RESOURCE_FILES resources.qrc)
+
 
 configure_file(${CMAKE_CURRENT_SOURCE_DIR}/runscript.in
 	${CMAKE_BINARY_DIR}/${CMAKE_PROJECT_NAME}
