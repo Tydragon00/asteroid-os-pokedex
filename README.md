@@ -29,8 +29,7 @@ To build and deploy the app to your smartwatch, follow these steps:
 
 
 1. Run the [Go script](init_app.sh) to generate the database and download the images
-2. Push db to the smartwatch with [this script](push_db.sh) 
-3. Build and push the app with [this script](push.sh) 
+2. Build and push the app with [this script](push.sh) 
 
 
 ## Open API
