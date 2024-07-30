@@ -1,3 +1,4 @@
+mkdir src/db
 cd init
 mkdir images
 go run main.go
