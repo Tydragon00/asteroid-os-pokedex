@@ -18,8 +18,9 @@ AsteroidOS is an open-source operating system built for smartwatches, offering a
 
 ## Screenshots
 
-![Screenshot 1](docs/charizard.jpg)
-![Screenshot 2](docs/mewtwo.jpg)
+| Generation selector | Pokémon overview | Stats & flavor text |
+| :---: | :---: | :---: |
+| ![Generation selector](docs/generation-selector.jpg) | ![Pokémon overview](docs/pokemon-overview.jpg) | ![Stats and flavor text](docs/pokemon-stats.jpg) |
 
 ## Building the App
 
