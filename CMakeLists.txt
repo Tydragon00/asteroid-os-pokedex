@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.20)
 
 project(poke-dex
 	VERSION 0.1.0
-	DESCRIPTION "Sample application to get started on Asteroid")
+	DESCRIPTION "Pokedex for AsteroidOS smartwatches")
 
 # Let qmlls/qmllint find the build directory of the QML module.
 set(QT_QML_GENERATE_QMLLS_INI ON)
