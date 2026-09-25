@@ -4,16 +4,25 @@ project(poke-dex
 	VERSION 0.0.1
 	DESCRIPTION "Sample application to get started on Asteroid")
 
+# Let qmlls/qmllint find the build directory of the QML module.
+set(QT_QML_GENERATE_QMLLS_INI ON)
+
+# qt_add_resources(... BIG_RESOURCES ...) builds the rcc pass 2 object library
+# without setting POSITION_INDEPENDENT_CODE, so the project has to provide it or
+# the resource objects fail to link into the shared library with relocation
+# errors.
+set(CMAKE_POSITION_INDEPENDENT_CODE ON)
+
 find_package(ECM REQUIRED NO_MODULE)
-find_package(AsteroidApp REQUIRED)
+find_package(AsteroidApp6 REQUIRED)
 
 set(CMAKE_MODULE_PATH ${ECM_MODULE_PATH} ${ASTEROID_MODULE_PATH})
 
 include(FeatureSummary)
 include(GNUInstallDirs)
 include(ECMFindQmlModule)
-include(AsteroidCMakeSettings)
-include(AsteroidTranslations)
+include(Asteroid6CMakeSettings)
+include(Asteroid6Translations)
 
 add_subdirectory(src)
 

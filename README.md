@@ -23,13 +23,28 @@ AsteroidOS is an open-source operating system built for smartwatches, offering a
 
 ## Building the App
 
-To build and deploy the app to your smartwatch, follow these steps:
+The app targets AsteroidOS 2.2 nightly (Qt6) watches. Export the Qt6 SDK
+environment setup script first (put it in `~/.bashrc` to avoid retyping):
 
-**WARNING: Before proceeding, ensure SSH address is correctly set.**
+```sh
+export QT6_SDK_ENV=/path/to/qt6-sdk/environment-setup-armv7vehf-neon-oe-linux-gnueabi
+```
 
+The scripts reach the watch as `ceres@192.168.2.15`; override with `WATCH`.
 
-1. Run the [Go script](init_app.sh) to generate the database and download the images
-2. Build and push the app with [this script](push.sh) 
+1. Run the [Go script](init_app.sh) to generate the database, download the
+   Pokémon artwork and shrink it to 240x240 WebP (requires Go and ImageMagick)
+2. Build and push the app with [this script](push.sh)
+
+## Debugging
+
+Watch the launcher, invoker and booster logs on the device:
+
+```sh
+tools/watch-logs.sh          # follow app / launcher / booster output
+tools/watch-logs.sh status   # one-shot package, file and library diagnostics
+tools/watch-logs.sh errors   # recent errors
+```
 
 
 ## Open API

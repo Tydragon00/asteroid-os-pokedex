@@ -1,43 +1,34 @@
-import QtQml 2.2
-import QtQuick 2.9
-import org.asteroid.controls 1.0
-import org.mydb 1.0
+import QtQuick
+import org.asteroid.controls
+import Pokedex
+
 Application {
     id: app
 
-    centerColor: "#000000"
-    outerColor: "#282121"
+    // Same colours as poke-dex.desktop.template so that the launcher tile and
+    // the application background match. The flat mesh animates blobs of the
+    // outer colour towards the screen edges, so it stays a neutral dark grey
+    // to avoid tinting the corners.
+    centerColor: "#2b2928"
+    outerColor: "#1a1918"
 
-
-    MyDatabase {
-        id: mydb
-        property var serieList: mydb.getGenerations()
-    }
     LayerStack {
         id: layerStack
+        visible: Repository.ready
         firstPage: firstPageComponent
+    }
+
+    Label {
+        anchors.centerIn: parent
+        width: parent.width * 0.8
+        horizontalAlignment: Text.AlignHCenter
+        wrapMode: Text.WordWrap
+        visible: !Repository.ready
+        text: "Database error: " + Repository.errorString
     }
 
     Component {
         id: firstPageComponent
-        Item {
-            ListView {
-                id: flick
-                anchors.fill: parent
-                model: mydb.serieList.length
-
-                highlight: Item { width: app.width }
-                clip: true
-                snapMode: ListView.SnapToItem
-                orientation: Qt.Horizontal
-
-                property int currentIndex: Math.round(contentX/(app.width))
-
-                delegate: GenerationItem {
-                    serieName: mydb.serieList[modelData]
-                }
-            }
-        }
+        GenerationListPage { pageStack: layerStack }
     }
-
 }
